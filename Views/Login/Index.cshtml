@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model LoginViewModel
+
+<form method="POST" asp-action="Login">
+    <div>
+        <div>
+            <label for="username-input">Username</label>
+        </div>
+        <input type="text" asp-for="@Model.Username" class="form-control border-0 rounded-start" id="username-input" placeholder="your-username" required />
+    </div>
+    <div>
+        <div>
+            <label for="password-input">Password</label>
+        </div>
+        <input type="password" asp-for="@Model.Password" class="form-control border-0 rounded-start" id="password-input" placeholder="your-password" required />
+    </div>
+    <div>
+        <input type="checkbox" id="password-checkbox" onchange="changePassVisibility()" />
+        <label for="password-checkbox" id="checkbox-label">Show Password</label>
+    </div>
+    <div>
+        <input type="checkbox" id="remember-me-checkbox" asp-for="@Model.RememberMe" />
+        <label for="remember-me-checkbox" id="checkbox-label">Remember me</label>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+</form>
+
+<script>
+    function changePassVisibility() {
+        const pwInput = document.getElementById("password-input");
+        const checkboxLabel = document.getElementById("checkbox-label");
+
+        if (pwInput.type === "password") {
+            pwInput.type = "text";
+            checkboxLabel.innerHTML = "Hide Password";
+        } else {
+            pwInput.type = "password";
+            checkboxLabel.innerHTML = "Show Password";
+        }
+    }
+</script>

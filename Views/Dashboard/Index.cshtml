@@ -1,0 +1,35 @@
+﻿@model List<VehicleViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Welcome, @User.Identity.Name. Here is your current vehicles list.</h2>
+<form asp-action="RedirectToAddPage">
+    <button class="btn btn-primary" >Add Vehicle</button>
+</form>
+<div class="card-body card-body-custom">
+    <div class="table-responsive">
+        <table class="table table-borderless table-striped-custom">
+            <thead class="table-header-custom">
+                <tr class="table-row-spacing">
+                    <th scope="col" class="fw-bold">VEHICLE ID</th>
+                    <th scope="col" class="fw-bold">MAKE</th>
+                    <th scope="col" class="fw-bold">MODEL</th>
+                    <th scope="col" class="fw-bold">LICENSE PLATE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var vehicle in Model)
+                {
+                    <tr class="table-row-spacing">
+                        <td scope="col" >@vehicle.VehicleId</td>
+                        <td scope="col" >@vehicle.VehicleMake</td>
+                        <td scope="col" >@vehicle.VehicleModel</td>
+                        <td scope="col" >@vehicle.LicensePlate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

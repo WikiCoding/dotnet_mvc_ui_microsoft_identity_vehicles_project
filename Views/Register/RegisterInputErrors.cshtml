@@ -1,0 +1,25 @@
+﻿@model List<ErrorViewModel>
+
+@{
+    ViewData["Title"] = "Errors List";
+}
+
+<h1>Error registering:</h1>
+<h3>Invalid email or Password. For passwords you need to have at least 6 characters, upper and lower case letters and at least a symbol.</h3>
+@* <h1>Errors List:</h1>
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var error in Model)
+        {
+            <li>
+                <h3>@error</h3>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No errors found.</p>
+} *@
