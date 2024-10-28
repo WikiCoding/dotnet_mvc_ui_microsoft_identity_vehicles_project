@@ -1,13 +1,13 @@
 services:
-  webapp:
-    image: myapp
-    build:
-      dockerfile: Dockerfile
-      context: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - app-db
+#  webapp:
+#    image: myapp
+#    build:
+#      dockerfile: Dockerfile
+#      context: .
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - app-db
     
   app-db:
     image: postgres

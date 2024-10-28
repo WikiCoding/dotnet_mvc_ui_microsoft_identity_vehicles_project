@@ -1,7 +1,7 @@
 ﻿@model List<VehicleViewModel>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard Page";
 }
 
 <h2>Welcome, @User.Identity.Name. Here is your current vehicles list.</h2>
@@ -17,6 +17,8 @@
                     <th scope="col" class="fw-bold">MAKE</th>
                     <th scope="col" class="fw-bold">MODEL</th>
                     <th scope="col" class="fw-bold">LICENSE PLATE</th>
+                    <th scope="col" class="fw-bold">EDIT</th>
+                    <th scope="col" class="fw-bold">DELETE</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +29,20 @@
                         <td scope="col" >@vehicle.VehicleMake</td>
                         <td scope="col" >@vehicle.VehicleModel</td>
                         <td scope="col" >@vehicle.LicensePlate</td>
+                        <td scope="col">
+                            <button>
+                                <a href="@Url.Action("Index", "UpdateVehicle", new { vehicleId = vehicle.VehicleId, vehicleMake = vehicle.VehicleMake, vehicleModel = vehicle.VehicleModel, licensePlate = vehicle.LicensePlate })">
+                                    📝
+                                </a>
+                            </button>
+                        </td>
+                        <td scope="col">
+                            <button>
+                                <a href="@Url.Action("Index", "DeleteVehicle", new { vehicleId = vehicle.VehicleId })">
+                                    ❌
+                                </a>
+                            </button>
+                        </td>
                     </tr>
                 }
             </tbody>

@@ -17,7 +17,7 @@ public class VehicleService
 
     public async Task<IEnumerable<VehicleDataModel>> FindAllByUsername(string username)
     {
-        _logger.LogInformation($"Getting vehicles from {username}");
+        _logger.LogInformation("Getting vehicles from {username}", username);
         var vehicles = await _appDbContext.Vehicles.Where(v => v.Owner == username).ToListAsync();
 
         return vehicles;
@@ -46,7 +46,7 @@ public class VehicleService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error saving {ex.Message}");
+            _logger.LogError("Error saving {message}", ex.Message);
             throw;
         }
         finally
@@ -54,6 +54,52 @@ public class VehicleService
             _logger.LogDebug("Releasing lock");
             _semaphore.Release();
         }
-        
+    }
+
+    public async Task UpdateVehicle(string vehicleMake, string vehicleModel, string licensePlate, string username)
+    {
+        try
+        {
+            await _semaphore.WaitAsync();
+
+            await _appDbContext.Vehicles.Where(v => v.Owner == username)
+                .ExecuteUpdateAsync(v =>
+                    v.SetProperty(x => x.VehicleMake, vehicleMake)
+                        .SetProperty(x => x.VehicleModel, vehicleModel)
+                        .SetProperty(x => x.LicensePlate, licensePlate));
+
+            _logger.LogInformation("Updated successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error updating: {message}", ex.Message);
+            throw;
+        }
+        finally
+        {
+            _logger.LogDebug("Releasing lock");
+            _semaphore.Release();
+        }
+    }
+
+    public async Task DeleteVehicle(string vehicleId)
+    {
+        try
+        {
+            await _semaphore.WaitAsync();
+            await _appDbContext.Vehicles.Where(v => v.VehicleId == new Guid(vehicleId)).ExecuteDeleteAsync();
+            
+            _logger.LogInformation("Deleted successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error updating: {message}", ex.Message);
+            throw;
+        }
+        finally
+        {
+            _logger.LogDebug("Releasing lock");
+            _semaphore.Release();
+        }
     }
 }

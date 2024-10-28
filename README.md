@@ -11,7 +11,7 @@ It's intended to have all CRUD operations, and possibly in a near future will al
 5. Npgsql.EntityFrameworkCore.PostgreSQL
 
 ## Run the project
-1. The db definition is in the docker-compose file
+1. The db definition is in the docker-compose file. The Webapp is commented our because I'm running locally. If you want to run the app in a container uncomment the docker-compose.yml and in appsettings.json change the ConnectionString for Docker
 ```bash
 docker-compose up -d
 ```

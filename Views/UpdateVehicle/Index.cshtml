@@ -1,0 +1,23 @@
+@model VehicleViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="POST" asp-action="Update">
+    <div>
+        <label>Vehicle Make</label>
+        <input type="text" class="form-control border-0 rounded-start" asp-for="@Model.VehicleMake" placeholder="Daimler" value="@Model.VehicleMake" required />
+    </div>
+    <div>
+        <label>Vehicle Model</label>
+        <input type="text" class="form-control border-0 rounded-start" asp-for="@Model.VehicleModel" placeholder="XJR" value="@Model.VehicleModel" required />
+    </div>
+    <div>
+        <label>Vehicle License Plate</label>
+        <input type="text" class="form-control border-0 rounded-start" asp-for="@Model.LicensePlate" placeholder="KO-1234-NL" value="@Model.LicensePlate" required />
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>

@@ -26,20 +26,13 @@ public class DashboardController : Controller
 
         var vehicles = await _vehicleService.FindAllByUsername(username);
 
-        var vehiclesViewModel = new List<VehicleViewModel>();
-
-        foreach (var vehicle in vehicles)
+        var vehiclesViewModel = vehicles.Select(vehicle => new VehicleViewModel
         {
-            var vehicleViewModel = new VehicleViewModel
-            {
-                VehicleId = vehicle.VehicleId,
-                VehicleMake = vehicle.VehicleMake,
-                VehicleModel = vehicle.VehicleModel,
-                LicensePlate = vehicle.LicensePlate
-            };
-
-            vehiclesViewModel.Add(vehicleViewModel);
-        }
+            VehicleId = vehicle.VehicleId, 
+            VehicleMake = vehicle.VehicleMake, 
+            VehicleModel = vehicle.VehicleModel, 
+            LicensePlate = vehicle.LicensePlate
+        }).ToList();
 
         return View(vehiclesViewModel);
     }
@@ -47,5 +40,10 @@ public class DashboardController : Controller
     public IActionResult RedirectToAddPage()
     {
         return RedirectToAction("Index", "AddVehicle");
+    }
+    
+    public IActionResult RedirectToUpdatePage()
+    {
+        return RedirectToAction("Index", "UpdateVehicle");
     }
 }
