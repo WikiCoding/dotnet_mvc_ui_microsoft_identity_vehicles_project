@@ -62,6 +62,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+    scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
+    scope.ServiceProvider.GetRequiredService<AuthDbContext>().Database.Migrate();
+    
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
